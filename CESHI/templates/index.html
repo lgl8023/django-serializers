@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>聊天室</title>
+</head>
+<body>
+<div style="height: 551px;width: 351px">
+    <div id="contents" style="height:500px;width:350px;overflow:auto;border:1px solid #000;">
+        <button style="width: 50px;height: 25px">返回</button>
+        <div><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1589768019&di=9bfdea78535c330be861834cf119216b&src=http://ku.90sjimg.com/element_origin_min_pic/17/04/27/78cc3e8b640f6f43aa1750ab30321364.jpg" width="25px" height="25px" style="float: right"></div>
+    </div>
+    <div>
+        <textarea id="msg" style="width: 295px"></textarea>
+        <button onclick="sendMsg()" style="float: right;width: 50px;height: 40px">发送</button>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var ws = new WebSocket("ws://127.0.0.1:2222/chat");
+    ws.onmessage = function(e) {
+        $("#contents").append("<p>" + e.data + "</p>");
+    };
+    function sendMsg() {
+        var msg = $("#msg").val();
+        ws.send(msg);
+        $("#msg").val("");
+    }
+</script>
+</body>
+</html>
+
+
+
